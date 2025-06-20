@@ -1,1 +1,1 @@
-# study-tracker
+# vinni-tracker
