@@ -8,13 +8,13 @@ import com.example.vinni_tracker.presentation.screen.home.HomeScreen
 import com.example.vinni_tracker.presentation.theme.VinnitrackerTheme
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            VinnitrackerTheme {
-                HomeScreen()
-            }
-        }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+    setContent {
+      VinnitrackerTheme {
+        HomeScreen()
+      }
     }
+  }
 }

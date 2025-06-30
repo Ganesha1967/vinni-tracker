@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun HomeScreen() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Column {
-            Text("This is HomeScreen")
-        }
+fun HomeScreen(modifier: Modifier = Modifier) {
+  Surface(
+    modifier = modifier.fillMaxSize(),
+    color = MaterialTheme.colorScheme.background,
+  ) {
+    Column {
+      Text("This is HomeScreen")
     }
+  }
 }
