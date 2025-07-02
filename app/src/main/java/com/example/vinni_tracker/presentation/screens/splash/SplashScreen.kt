@@ -1,4 +1,4 @@
-package com.example.vinni_tracker.presentation.screen.greating
+package com.example.vinni_tracker.presentation.screens.splash
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
