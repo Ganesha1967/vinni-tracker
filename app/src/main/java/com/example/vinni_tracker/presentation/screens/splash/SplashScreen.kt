@@ -1,21 +1,31 @@
 package com.example.vinni_tracker.presentation.screens.splash
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun SplashScreen(modifier: Modifier = Modifier) {
-  Surface(
-    modifier = modifier.fillMaxSize(),
-    color = MaterialTheme.colorScheme.background,
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .background(Color.White),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center,
   ) {
-    Column {
-      Text("This is HomeScreen")
-    }
+    // Icon on the screen
+    Icon(
+      imageVector = Icons.Default.Person,
+      contentDescription = "Profile",
+      tint = Color(0xFF0F9D58),
+    )
   }
 }
