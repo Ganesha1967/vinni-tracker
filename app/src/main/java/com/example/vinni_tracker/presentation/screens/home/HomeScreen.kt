@@ -4,31 +4,42 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.vinni_tracker.presentation.screens.home.components.SmallTopAppBar
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
+  // move to Theme.kt
+  val myColor = Color(0xFFE2EFF2)
+
+  // hide
+  val login = "Ganesha"
+  val partOfTheDay = "Good Afternoon"
+
+  val greating = "$partOfTheDay, $login"
+  val wish = "We Wish you a good day!"
+
   Column(
-    modifier = Modifier
+    modifier = modifier
       .fillMaxSize()
-      .background(Color.White),
+      .background(myColor),
     horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.Center,
+    verticalArrangement = Arrangement.Top,
   ) {
-    // Icon on the screen
-    Icon(
-      imageVector = Icons.Default.Home,
-      contentDescription = "home",
-      tint = Color(0xFF0F9D58),
+    SmallTopAppBar(
+      titleGreetings = greating,
+      titleWish = wish,
+      containerColor = myColor,
     )
-    // Text on the screen
-    Text(text = "Home", color = Color.Black)
   }
+}
+
+@Preview
+@Composable
+private fun HomeScreenPreview() {
+  HomeScreen()
 }
