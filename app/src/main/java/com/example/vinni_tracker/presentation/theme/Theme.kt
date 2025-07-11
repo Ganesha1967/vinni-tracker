@@ -9,7 +9,9 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.example.vinni_tracker.presentation.theme.SecondaryContainerLight
 
+// пререпроверить цвета
 private val DarkColorScheme = darkColorScheme(
   primary = PrimaryDark,
   secondary = SecondaryDark,
@@ -21,6 +23,11 @@ private val DarkColorScheme = darkColorScheme(
   surface = SurfaceDark,
   onBackground = OnBackgroundDark,
   onSurface = OnSurfaceDark,
+  primaryContainer = PrimaryContainerDark,
+  onPrimaryContainer = OnPrimaryContainerDark,
+  secondaryContainer = SecondaryContainerDark,
+  onSecondaryContainer = OnSecondaryContainerDark,
+
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -34,6 +41,10 @@ private val LightColorScheme = lightColorScheme(
   surface = SurfaceLight,
   onBackground = OnBackgroundLight,
   onSurface = OnSurfaceLight,
+  primaryContainer = PrimaryContainerLight,
+  onPrimaryContainer = OnPrimaryContainerLight,
+  secondaryContainer = SecondaryContainerLight,
+  onSecondaryContainer = OnSecondaryContainerLight,
 )
 
 @Composable

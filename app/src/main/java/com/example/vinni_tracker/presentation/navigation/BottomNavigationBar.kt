@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
+// заменить цвета
 @Composable
 fun BottomNavigationBar(navController: NavHostController, modifier: Modifier = Modifier) {
   NavigationBar(
