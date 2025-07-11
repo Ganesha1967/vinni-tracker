@@ -142,7 +142,7 @@ fun StudyTimerBlock(navController: NavHostController, modifier: Modifier = Modif
   }
 }
 
-//fix the location
+// fix the location
 @Composable
 fun Statistic(cardDataStat: List<HomeCardData>, navController: NavHostController, modifier: Modifier = Modifier) {
   LazyRow(
@@ -187,7 +187,7 @@ fun Statistic(cardDataStat: List<HomeCardData>, navController: NavHostController
   }
 }
 
-//fix the location
+// fix the location
 @Composable
 fun ShopCalendar(cardDataShopCalendar: List<HomeCardData>, navController: NavHostController, modifier: Modifier = Modifier) {
   LazyRow(
