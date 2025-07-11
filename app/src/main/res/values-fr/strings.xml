@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">vinni-tracker</string>
+    <string name="greeting_morning">Bonjour</string>
+    <string name="greeting_afternoon">Bon après-midi</string>
+    <string name="greeting_evening">Bonsoir</string>
+    <string name="greeting_night">Bonne nuit</string>
+    <string name="wish_good_day">Nous vous souhaitons une bonne journée!</string>
+    <string name="greeting_template">%1$s, %2$s</string>         // pluralStringResource?
+</resources>

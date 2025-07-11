@@ -7,25 +7,25 @@ object Constants {
     // Home screen
     BottomNavItem(
       label = "Home",
-      icon = R.drawable.home,
+      icon = R.drawable.ic_home,
       route = "home",
     ),
     // Tasks screen
     BottomNavItem(
       label = "Tasks",
-      icon = R.drawable.book,
+      icon = R.drawable.ic_book,
       route = "tasks",
     ),
     // AI-help screen
     BottomNavItem(
       label = "AI-help",
-      icon = R.drawable.lightbulb_alt,
+      icon = R.drawable.ic_lightbulb_alt,
       route = "ai-help",
     ),
     // Profile screen
     BottomNavItem(
       label = "Profile",
-      icon = R.drawable.user,
+      icon = R.drawable.ic_user,
       route = "profile",
     ),
   )
