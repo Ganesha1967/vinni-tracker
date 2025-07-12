@@ -5,9 +5,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,8 +18,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +26,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -44,13 +44,8 @@ import com.example.vinni_tracker.presentation.theme.VinniTrackerTheme
 // add pull to refresh
 @Composable
 fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier, viewModel: HomeViewModel = viewModel()) {
-  val login = "Ganesha"
   val partOfDay = viewModel.getPartOfDay()
-  val greeting = greetingState(partOfDay)
-  val fullGreeting = stringResource(R.string.greeting_template, greeting, login) // pluralStringResource?
-  val wish = stringResource(R.string.wish_good_day)
 
-  // make it a separate function - ScrollBox?
   Column(
     modifier = modifier
       .fillMaxSize()
@@ -59,9 +54,9 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier, 
       .verticalScroll(rememberScrollState()),
     verticalArrangement = Arrangement.spacedBy(13.dp),
   ) {
-    TitleBlock(greeting = fullGreeting, wish = wish)
-    StudyTimerBlock(navController)
-    Statistic(cardDataStat = viewModel.cardDataStat, navController = navController)
+    TitleBlock(partOfDay = partOfDay)
+    StudyTimerBlock(partOfDay = partOfDay, navController)
+    Statistic(cardDataStat = viewModel.cardDataStat, navController = navController, partOfDay = partOfDay)
     ShopCalendar(cardDataShopCalendar = viewModel.cardDataShopCalendar, navController = navController)
     StudyStorageBlock(navController = navController)
     DailyRecommendationBlock(navController = navController)
@@ -70,7 +65,12 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier, 
 }
 
 @Composable
-fun TitleBlock(greeting: String, wish: String, modifier: Modifier = Modifier) {
+fun TitleBlock(partOfDay: PartOfDay, modifier: Modifier = Modifier) {
+  val login = "Ganesha"
+  val greeting = greetingState(partOfDay)
+  val fullGreeting = stringResource(R.string.greeting_template, greeting, login) // pluralStringResource?
+  val wish = stringResource(R.string.wish_good_day)
+
   Surface(
     color = MaterialTheme.colorScheme.background,
     modifier = modifier.fillMaxWidth(),
@@ -82,7 +82,7 @@ fun TitleBlock(greeting: String, wish: String, modifier: Modifier = Modifier) {
     ) {
       Column {
         Text(
-          text = greeting,
+          text = fullGreeting,
           style = MaterialTheme.typography.headlineSmall,
           color = MaterialTheme.colorScheme.onBackground,
         )
@@ -103,40 +103,40 @@ fun TitleBlock(greeting: String, wish: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun StudyTimerBlock(navController: NavHostController, modifier: Modifier = Modifier) {
+fun StudyTimerBlock(partOfDay: PartOfDay, navController: NavHostController, modifier: Modifier = Modifier) {
   Card(
     modifier = Modifier
       .fillMaxWidth()
-      .height(233.dp),
+      .height(233.dp)
+      .clickable { navController.navigate("study_timer") },
     shape = MaterialTheme.shapes.medium,
     colors = CardDefaults.cardColors(
-      containerColor = MaterialTheme.colorScheme.primaryContainer,
       contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
     ),
   ) {
-    Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.Center,
-    ) {
-      Text(
-        text = "Study Timer",
-        style = MaterialTheme.typography.headlineLarge,
-        color = MaterialTheme.colorScheme.onPrimaryContainer,
-        textAlign = TextAlign.Center,
+    val image = imageStudyTimer(partOfDay)
+
+    Box(modifier = Modifier.fillMaxSize()) {
+      Image(
+        painter = image,
+        contentDescription = "Background image",
+        modifier = Modifier
+          .fillMaxSize(),
+        contentScale = ContentScale.Crop,
       )
-      Spacer(modifier = Modifier.height(16.dp))
-      Button(
-        onClick = { navController.navigate("study_timer") },
-        colors = ButtonDefaults.buttonColors(
-          containerColor = MaterialTheme.colorScheme.secondaryContainer,
-          contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        ),
-        elevation = ButtonDefaults.buttonElevation(3.dp),
+      Column(
+        modifier = Modifier
+          .fillMaxSize()
+          .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
       ) {
-        Text("START")
+        Text(
+          text = "Study Timer",
+          style = MaterialTheme.typography.displayMedium,
+          color = MaterialTheme.colorScheme.onPrimaryContainer,
+          textAlign = TextAlign.Center,
+        )
       }
     }
   }
@@ -144,7 +144,7 @@ fun StudyTimerBlock(navController: NavHostController, modifier: Modifier = Modif
 
 // fix the location
 @Composable
-fun Statistic(cardDataStat: List<HomeCardData>, navController: NavHostController, modifier: Modifier = Modifier) {
+fun Statistic(cardDataStat: List<HomeCardData>, navController: NavHostController, partOfDay: PartOfDay, modifier: Modifier = Modifier) {
   LazyRow(
     modifier = Modifier.fillMaxWidth(),
     horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -161,26 +161,35 @@ fun Statistic(cardDataStat: List<HomeCardData>, navController: NavHostController
           contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         ),
       ) {
-        Column(
-          modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp),
-          horizontalAlignment = Alignment.CenterHorizontally,
-          verticalArrangement = Arrangement.Center,
-        ) {
-          Text(
-            text = card.title,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            textAlign = TextAlign.Center,
+        Box(modifier = Modifier.fillMaxSize()) {
+          Image(
+            painter = painterResource(card.imageResId),
+            contentDescription = "Background image",
+            modifier = Modifier
+              .fillMaxSize(),
+            contentScale = ContentScale.Crop,
           )
-          Text(
-            text = card.contentDescription,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 4.dp),
-          )
+          Column(
+            modifier = Modifier
+              .fillMaxSize()
+              .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+          ) {
+            Text(
+              text = card.title,
+              style = MaterialTheme.typography.titleMedium,
+              color = MaterialTheme.colorScheme.onPrimaryContainer,
+              textAlign = TextAlign.Center,
+            )
+            Text(
+              text = card.contentDescription,
+              style = MaterialTheme.typography.bodySmall,
+              color = MaterialTheme.colorScheme.onPrimaryContainer,
+              textAlign = TextAlign.Center,
+              modifier = Modifier.padding(top = 4.dp),
+            )
+          }
         }
       }
     }
@@ -237,7 +246,8 @@ fun StudyStorageBlock(navController: NavHostController, modifier: Modifier = Mod
   Card(
     modifier = Modifier
       .fillMaxWidth()
-      .height(45.dp),
+      .height(45.dp)
+      .clickable { navController.navigate("study_storage") },
     shape = MaterialTheme.shapes.medium,
     colors = CardDefaults.cardColors(
       containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -264,7 +274,8 @@ fun DailyRecommendationBlock(navController: NavHostController, modifier: Modifie
   Card(
     modifier = Modifier
       .fillMaxWidth()
-      .height(95.dp),
+      .height(95.dp)
+      .clickable { navController.navigate("recommendation_screen") },
     shape = MaterialTheme.shapes.medium,
     colors = CardDefaults.cardColors(
       containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -297,7 +308,8 @@ fun NewsBlock(navController: NavHostController, modifier: Modifier = Modifier) {
   Card(
     modifier = Modifier
       .fillMaxWidth()
-      .height(95.dp),
+      .height(95.dp)
+      .clickable { navController.navigate("news_screen") },
     shape = MaterialTheme.shapes.medium,
     colors = CardDefaults.cardColors(
       containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -332,6 +344,16 @@ fun greetingState(partOfDay: PartOfDay): String {
     PartOfDay.AFTERNOON -> stringResource(R.string.greeting_afternoon)
     PartOfDay.EVENING -> stringResource(R.string.greeting_evening)
     PartOfDay.NIGHT -> stringResource(R.string.greeting_night)
+  }
+}
+
+@Composable
+fun imageStudyTimer(partOfDay: PartOfDay): Painter {
+  return when (partOfDay) {
+    PartOfDay.MORNING -> painterResource(id = R.drawable.timer_afternoon)
+    PartOfDay.AFTERNOON -> painterResource(id = R.drawable.timer_afternoon)
+    PartOfDay.EVENING -> painterResource(id = R.drawable.timer_afternoon)
+    PartOfDay.NIGHT -> painterResource(id = R.drawable.timer_afternoon)
   }
 }
 
