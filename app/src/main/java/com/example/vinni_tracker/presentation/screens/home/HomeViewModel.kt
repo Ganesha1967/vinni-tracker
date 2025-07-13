@@ -36,8 +36,7 @@ class HomeViewModel : ViewModel() {
         PartOfDay.AFTERNOON -> R.drawable.pet_afternoon
         PartOfDay.EVENING -> R.drawable.pet_afternoon
         PartOfDay.NIGHT -> R.drawable.pet_afternoon
-      },
-      iconResId = 0,
+      }
     ),
     HomeCardData(
       id = "user_stats",
@@ -48,8 +47,7 @@ class HomeViewModel : ViewModel() {
         PartOfDay.AFTERNOON -> R.drawable.user_afternoon
         PartOfDay.EVENING -> R.drawable.user_afternoon
         PartOfDay.NIGHT -> R.drawable.user_afternoon
-      },
-      iconResId = 0,
+      }
     ),
   )
 
@@ -59,15 +57,13 @@ class HomeViewModel : ViewModel() {
       id = "shop_screen",
       title = "Shop",
       contentDescription = "Purchase items",
-      imageResId = R.drawable.ic_hot_price,
-      iconResId = R.drawable.ic_shop,
+      imageResId = R.drawable.ic_shop,
     ),
     HomeCardData(
       id = "calendar_screen",
       title = "Calendar",
       contentDescription = "June 2025",
       imageResId = 0,
-      iconResId = 0,
     ),
   )
   fun getPartOfDay(): PartOfDay {
