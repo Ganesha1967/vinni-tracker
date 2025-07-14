@@ -2,12 +2,11 @@ package com.example.vinni_tracker.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
-// пререпроверить цвета и заменить их
-// Цвета для светлой темы
-val PrimaryLight = Color(0xFFF44336) // Основной цвет
+// LIGHT THEME
+val PrimaryLight = Color(0xFFF44336) // main color
 val SecondaryLight = Color(0xFF9C27B0)
 val TertiaryLight = Color(0xFF673AB7)
-val OnPrimaryLight = Color(0xFF3F51B5) // Цвет текста на primary
+val OnPrimaryLight = Color(0xFF3F51B5)
 val OnSecondaryLight = Color(0xFF2196F3)
 val OnTertiaryLight = Color(0xFF010D10)
 val BackgroundLight = Color(0xFFE2EFF2)
@@ -19,7 +18,7 @@ val OnPrimaryContainerLight = Color(0xFFFFE7BF)
 val SecondaryContainerLight = Color(0xFFFFE7BF)
 val OnSecondaryContainerLight = Color(0xFF3F414E)
 
-// Цвета для тёмной темы
+// DARK THEME
 val PrimaryDark = Color(0xFFD1F0FF)
 val SecondaryDark = Color(0xFF024A6B)
 val TertiaryDark = Color(0xFFA5CDEA)
