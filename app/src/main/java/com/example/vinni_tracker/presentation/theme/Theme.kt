@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.example.vinni_tracker.presentation.theme.SecondaryContainerLight
 
-// пререпроверить цвета
+// check colors
 private val DarkColorScheme = darkColorScheme(
   primary = PrimaryDark,
   secondary = SecondaryDark,

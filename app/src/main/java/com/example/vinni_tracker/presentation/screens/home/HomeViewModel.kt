@@ -3,7 +3,10 @@ package com.example.vinni_tracker.presentation.screens.home
 import androidx.lifecycle.ViewModel
 import com.example.vinni_tracker.R
 import com.example.vinni_tracker.data.HomeCardData
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import java.util.Calendar
+import java.util.Date
 
 enum class PartOfDay {
   MORNING,
@@ -36,7 +39,7 @@ class HomeViewModel : ViewModel() {
         PartOfDay.AFTERNOON -> R.drawable.pet_afternoon
         PartOfDay.EVENING -> R.drawable.pet_afternoon
         PartOfDay.NIGHT -> R.drawable.pet_afternoon
-      }
+      },
     ),
     HomeCardData(
       id = "user_stats",
@@ -47,12 +50,11 @@ class HomeViewModel : ViewModel() {
         PartOfDay.AFTERNOON -> R.drawable.user_afternoon
         PartOfDay.EVENING -> R.drawable.user_afternoon
         PartOfDay.NIGHT -> R.drawable.user_afternoon
-      }
+      },
     ),
   )
 
-  // fix icons for shop
-  val cardDataShopCalendar = listOf(
+  val shopCalendar = listOf(
     HomeCardData(
       id = "shop_screen",
       title = "Shop",
@@ -76,5 +78,18 @@ class HomeViewModel : ViewModel() {
       in EVENING_START_HOUR..EVENING_END_HOUR -> PartOfDay.EVENING
       else -> PartOfDay.NIGHT
     }
+  }
+
+  fun getCalendarDates(): ImmutableList<Pair<Date, Boolean>> {
+    val calendar = Calendar.getInstance()
+    val dates = buildList {
+      calendar.set(Calendar.DAY_OF_MONTH, 1)
+      val maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+      for (day in 1..maxDay) {
+        calendar.set(Calendar.DAY_OF_MONTH, day)
+        add(Pair(calendar.time, false))
+      }
+    }.toImmutableList()
+    return dates
   }
 }
