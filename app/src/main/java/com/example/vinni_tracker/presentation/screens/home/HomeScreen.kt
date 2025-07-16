@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -41,11 +41,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.vinni_tracker.R
+import com.example.vinni_tracker.data.CalendarData
 import com.example.vinni_tracker.data.HomeCardData
 import com.example.vinni_tracker.presentation.screens.home.components.CalendarGrid
 import com.example.vinni_tracker.presentation.theme.VinniTrackerTheme
-import kotlinx.collections.immutable.ImmutableList
-import java.util.Calendar
 import java.util.Date
 
 // reorganize the project structure to support desktop, tablet, smartwatch and mobile devices
@@ -55,6 +54,7 @@ import java.util.Date
 @Composable
 fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier, viewModel: HomeViewModel = viewModel()) {
   val partOfDay = viewModel.getPartOfDay()
+  val calendarData = viewModel.getCalendarData()
 
   Column(
     modifier = modifier
@@ -67,7 +67,7 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier, 
     TitleBlock(partOfDay = partOfDay)
     StudyTimerBlock(partOfDay = partOfDay, navController)
     Statistic(cardDataStat = viewModel.cardDataStat, navController = navController)
-    ShopCalendar(shopCalendar = viewModel.shopCalendar, dataCalendar = viewModel.getCalendarDates(), navController = navController)
+    ShopCalendar(shopCalendar = viewModel.shopCalendar, dataCalendar = calendarData, navController = navController)
     StudyStorageBlock(navController = navController)
     DailyRecommendationBlock(navController = navController)
     NewsBlock(navController = navController)
@@ -232,7 +232,7 @@ fun Statistic(cardDataStat: List<HomeCardData>, navController: NavHostController
 @Composable
 fun ShopCalendar(
   shopCalendar: List<HomeCardData>,
-  dataCalendar: ImmutableList<Pair<Date, Boolean>>,
+  dataCalendar: CalendarData,
   navController: NavHostController,
   modifier: Modifier = Modifier,
 ) {
@@ -288,13 +288,10 @@ fun ShopCalendar(
             }
             "calendar_screen" -> {
               CalendarView(
-                month = dataCalendar.firstOrNull()?.first ?: Calendar.getInstance().time,
-                dates = dataCalendar,
+                dataCalendar = dataCalendar,
                 onClick = {},
                 startFromSunday = false,
-                modifier = Modifier
-                  .fillMaxSize()
-                  .padding(4.dp),
+                modifier = Modifier.fillMaxSize(),
               )
             }
           }
@@ -313,31 +310,28 @@ fun ShopCalendar(
 // and those that he missed will be empty
 // (or colored in a different color - red, for example)
 @Composable
-fun CalendarView(
-  month: Date,
-  dates: ImmutableList<Pair<Date, Boolean>>?,
-  onClick: (Date) -> Unit,
-  startFromSunday: Boolean,
-  modifier: Modifier = Modifier,
-) {
-  Column(modifier = modifier) {
-    Box(modifier = Modifier.fillMaxWidth()) {
-//      Text(
-//        text = month.formatToMonthString(),
-//        style = MaterialTheme.typography.titleSmall.copy(fontSize = 10.sp), // Reduced for compactness
-//        color = MaterialTheme.colorScheme.onPrimaryContainer,
-//        modifier = Modifier.align(Alignment.TopCenter)
-//      )
-    }
-    if (!dates.isNullOrEmpty()) {
+fun CalendarView(dataCalendar: CalendarData, onClick: (Date) -> Unit, startFromSunday: Boolean, modifier: Modifier = Modifier) {
+  Column(
+    modifier = modifier
+      .fillMaxSize()
+      .padding(12.dp),
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    Text(
+      text = dataCalendar.monthYear,
+      color = Color.White,
+      fontSize = 14.sp,
+    )
+
+    Box(
+      modifier = Modifier
+        .fillMaxSize(),
+      contentAlignment = Alignment.Center,
+    ) {
       CalendarGrid(
-        dates = dates,
         onClick = onClick,
         startFromSunday = startFromSunday,
-        modifier = Modifier
-          .wrapContentHeight()
-          .padding(horizontal = 11.dp) // change size of calendar
-          .align(Alignment.CenterHorizontally),
+        modifier = Modifier.wrapContentSize(),
       )
     }
   }

@@ -27,10 +27,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-// fix size of calendar
 fun Date.formatToCalendarDay(): String = SimpleDateFormat("d", Locale.getDefault()).format(this)
-
-fun Date.formatToMonthString(): String = SimpleDateFormat("MMMM", Locale.getDefault()).format(this)
 
 fun Date.formatToWeekDay(): Int = Calendar.getInstance().apply {
   time = this@formatToWeekDay
@@ -89,19 +86,15 @@ private fun WeekdayCell(weekday: Int, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CalendarGrid(
-  dates: ImmutableList<Pair<Date, Boolean>>,
-  onClick: (Date) -> Unit,
-  startFromSunday: Boolean,
-  modifier: Modifier = Modifier,
-) {
+fun CalendarGrid(onClick: (Date) -> Unit, startFromSunday: Boolean, modifier: Modifier = Modifier) {
+  val dates = getCurrentWeekDates(startFromSunday).toImmutableList()
   val weekdayFirstDay = dates.first().first.formatToWeekDay()
   val weekdays = getWeekDays(startFromSunday)
+
   CalendarCustomLayout(modifier = modifier) {
     weekdays.forEach {
       WeekdayCell(weekday = it)
     }
-    // Add spacers to align the first day of the month
     repeat(if (!startFromSunday) weekdayFirstDay - 2 else weekdayFirstDay - 1) {
       Spacer(modifier = Modifier)
     }
@@ -112,8 +105,25 @@ fun CalendarGrid(
 }
 
 fun getWeekDays(startFromSunday: Boolean): ImmutableList<Int> {
-  val lista = (1..7).toList() // Fixed syntax for range
+  val lista = (1..7).toList()
   return (if (startFromSunday) lista else lista.drop(1) + lista.take(1)).toImmutableList()
+}
+
+fun getCurrentWeekDates(startFromSunday: Boolean): List<Pair<Date, Boolean>> {
+  val calendar = Calendar.getInstance()
+  val firstDayOfWeek = if (startFromSunday) Calendar.SUNDAY else Calendar.MONDAY
+  calendar.set(Calendar.DAY_OF_WEEK, firstDayOfWeek)
+  calendar.set(Calendar.HOUR_OF_DAY, 0)
+  calendar.set(Calendar.MINUTE, 0)
+  calendar.set(Calendar.SECOND, 0)
+  calendar.set(Calendar.MILLISECOND, 0)
+
+  val dates = mutableListOf<Pair<Date, Boolean>>()
+  repeat(7) {
+    dates.add(Pair(calendar.time, false))
+    calendar.add(Calendar.DAY_OF_WEEK, 1)
+  }
+  return dates
 }
 
 @Composable
@@ -127,6 +137,7 @@ private fun CalendarCustomLayout(
 ) {
   val horizontalGap = with(LocalDensity.current) { horizontalGapDp.roundToPx() }
   val verticalGap = with(LocalDensity.current) { verticalGapDp.roundToPx() }
+
   Layout(
     content = content,
     modifier = modifier,
@@ -138,10 +149,12 @@ private fun CalendarCustomLayout(
     val yPos: MutableList<Int> = mutableListOf()
     var currentX = 0
     var currentY = 0
-    measurables.forEach { _ ->
+
+    measurables.forEachIndexed { index, _ ->
       xPos.add(currentX)
       yPos.add(currentY)
-      if (currentX + singleWidth + horizontalGap > totalWidthWithoutGap) {
+
+      if (index == 6) {
         currentX = 0
         currentY += singleWidth + verticalGap
       } else {

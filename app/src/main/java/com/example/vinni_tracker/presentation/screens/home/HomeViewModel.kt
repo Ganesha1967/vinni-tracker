@@ -2,11 +2,12 @@ package com.example.vinni_tracker.presentation.screens.home
 
 import androidx.lifecycle.ViewModel
 import com.example.vinni_tracker.R
+import com.example.vinni_tracker.data.CalendarData
 import com.example.vinni_tracker.data.HomeCardData
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
+import java.util.Locale
 
 enum class PartOfDay {
   MORNING,
@@ -80,8 +81,11 @@ class HomeViewModel : ViewModel() {
     }
   }
 
-  fun getCalendarDates(): ImmutableList<Pair<Date, Boolean>> {
+  fun getCalendarData(): CalendarData {
     val calendar = Calendar.getInstance()
+    val month = calendar.get(Calendar.MONTH)
+    val year = calendar.get(Calendar.YEAR)
+
     val dates = buildList {
       calendar.set(Calendar.DAY_OF_MONTH, 1)
       val maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
@@ -90,6 +94,14 @@ class HomeViewModel : ViewModel() {
         add(Pair(calendar.time, false))
       }
     }.toImmutableList()
-    return dates
+
+    val monthYear = SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(calendar.time)
+
+    return CalendarData(
+      dates = dates,
+      monthYear = monthYear,
+      month = month,
+      year = year,
+    )
   }
 }
