@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
-// заменить цвета
+// change the icon coloring area when it selected
 @Composable
 fun BottomNavigationBar(navController: NavHostController, modifier: Modifier = Modifier) {
   NavigationBar(
@@ -38,12 +38,12 @@ fun BottomNavigationBar(navController: NavHostController, modifier: Modifier = M
         label = {
           Text(text = navItem.label)
         },
-        alwaysShowLabel = false,
+        alwaysShowLabel = true,
         colors = NavigationBarItemDefaults.colors(
           selectedIconColor = Color(0xFFD1F0FF),
           selectedTextColor = Color(0xFFD1F0FF),
           unselectedIconColor = Color(0xFFFFE7BF),
-//                    unselectedTextColor = Color(0xFFFFE7BF),
+          unselectedTextColor = Color(0xFFFFE7BF),
           indicatorColor = Color(0xFF026D9E),
         ),
       )
