@@ -22,6 +22,12 @@ object Constants {
       icon = R.drawable.ic_lightbulb_alt,
       route = "ai-help",
     ),
+    // Settings screen
+    BottomNavItem(
+      label = "Settings",
+      icon = R.drawable.ic_settings,
+      route = "settings",
+    ),
     // Profile screen
     BottomNavItem(
       label = "Profile",

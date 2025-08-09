@@ -18,6 +18,7 @@ import com.example.vinni_tracker.presentation.screens.home.StudyStorageScreen
 import com.example.vinni_tracker.presentation.screens.home.StudyTimerScreen
 import com.example.vinni_tracker.presentation.screens.home.UserStatsScreen
 import com.example.vinni_tracker.presentation.screens.profile.ProfileScreen
+import com.example.vinni_tracker.presentation.screens.settings.SettingsScreen
 import com.example.vinni_tracker.presentation.screens.tasks.TasksScreen
 
 @Composable
@@ -35,6 +36,9 @@ fun NavHostContainer(navController: NavHostController, padding: PaddingValues, m
       }
       composable("ai-help") {
         AiHelpScreen()
+      }
+      composable("settings") {
+        SettingsScreen()
       }
       composable("profile") {
         ProfileScreen()
