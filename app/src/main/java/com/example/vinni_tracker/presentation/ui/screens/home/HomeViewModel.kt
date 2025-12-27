@@ -1,13 +1,11 @@
-package com.example.vinni_tracker.presentation.screens.home
+package com.example.vinni_tracker.presentation.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import com.example.vinni_tracker.R
-import com.example.vinni_tracker.data.HomeCardData
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
+import com.example.vinni_tracker.presentation.ui.screens.home.components.HomeCardData
 import java.util.Calendar
-import java.util.Date
 
+// clean!!!!!!!!!!!!!!!
 enum class PartOfDay {
   MORNING,
   AFTERNOON,
@@ -25,7 +23,6 @@ class HomeViewModel : ViewModel() {
     private const val EVENING_END_HOUR = 23
   }
 
-  // create data class
   val petsName = "Kuska"
   val petsStats = "Health: 80/100 HP"
 
@@ -54,7 +51,7 @@ class HomeViewModel : ViewModel() {
     ),
   )
 
-  val shopCalendar = listOf(
+  val shopNews = listOf(
     HomeCardData(
       id = "shop_screen",
       title = "Shop",
@@ -62,34 +59,21 @@ class HomeViewModel : ViewModel() {
       imageResId = R.drawable.ic_shop,
     ),
     HomeCardData(
-      id = "calendar_screen",
-      title = "Calendar",
-      contentDescription = "June 2025",
+      id = "news_screen",
+      title = "News",
+      contentDescription = "News",
       imageResId = 0,
     ),
   )
+
   fun getPartOfDay(): PartOfDay {
     val calendar: Calendar = Calendar.getInstance()
     val hour = calendar.get(Calendar.HOUR_OF_DAY)
-
     return when (hour) {
       in MORNING_START_HOUR..MORNING_END_HOUR -> PartOfDay.MORNING
       in AFTERNOON_START_HOUR..AFTERNOON_END_HOUR -> PartOfDay.AFTERNOON
       in EVENING_START_HOUR..EVENING_END_HOUR -> PartOfDay.EVENING
       else -> PartOfDay.NIGHT
     }
-  }
-
-  fun getCalendarDates(): ImmutableList<Pair<Date, Boolean>> {
-    val calendar = Calendar.getInstance()
-    val dates = buildList {
-      calendar.set(Calendar.DAY_OF_MONTH, 1)
-      val maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-      for (day in 1..maxDay) {
-        calendar.set(Calendar.DAY_OF_MONTH, day)
-        add(Pair(calendar.time, false))
-      }
-    }.toImmutableList()
-    return dates
   }
 }

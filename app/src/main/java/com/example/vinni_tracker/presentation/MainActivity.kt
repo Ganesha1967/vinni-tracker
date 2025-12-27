@@ -7,9 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.vinni_tracker.designsystem.theme.VinniTrackerTheme
 import com.example.vinni_tracker.presentation.navigation.BottomNavigationBar
 import com.example.vinni_tracker.presentation.navigation.NavHostContainer
-import com.example.vinni_tracker.presentation.theme.VinniTrackerTheme
 // import dagger.hilt.android.AndroidEntryPoint
 
 // @AndroidEntryPoint

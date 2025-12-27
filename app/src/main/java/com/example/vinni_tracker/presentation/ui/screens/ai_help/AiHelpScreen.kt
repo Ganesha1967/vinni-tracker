@@ -1,21 +1,22 @@
-package com.example.vinni_tracker.presentation.screens.splash
+package com.example.vinni_tracker.presentation.ui.screens.ai_help
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun SplashScreen(modifier: Modifier = Modifier) {
+fun AiHelpScreen(modifier: Modifier = Modifier) {
   Column(
-    modifier = Modifier
+    modifier = modifier
       .fillMaxSize()
       .background(Color.White),
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -23,9 +24,11 @@ fun SplashScreen(modifier: Modifier = Modifier) {
   ) {
     // Icon on the screen
     Icon(
-      imageVector = Icons.Default.Person,
-      contentDescription = "Profile",
+      imageVector = Icons.Default.Info,
+      contentDescription = "ai-help",
       tint = Color(0xFF0F9D58),
     )
+    // Text on the screen
+    Text(text = "AI-help", color = Color.Black)
   }
 }

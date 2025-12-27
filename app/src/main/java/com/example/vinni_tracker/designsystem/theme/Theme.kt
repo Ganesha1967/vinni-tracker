@@ -1,4 +1,4 @@
-package com.example.vinni_tracker.presentation.theme
+package com.example.vinni_tracker.designsystem.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -9,7 +9,6 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.example.vinni_tracker.presentation.theme.SecondaryContainerLight
 
 // check colors
 private val DarkColorScheme = darkColorScheme(

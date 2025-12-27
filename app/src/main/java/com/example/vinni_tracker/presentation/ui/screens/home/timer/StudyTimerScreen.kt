@@ -1,11 +1,11 @@
-package com.example.vinni_tracker.presentation.screens.profile
+package com.example.vinni_tracker.presentation.ui.screens.home.timer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.LockClock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,20 +14,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun StudyTimerScreen(modifier: Modifier = Modifier) {
   Column(
-    modifier = Modifier
+    modifier = modifier
       .fillMaxSize()
       .background(Color.White),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.Center,
   ) {
     Icon(
-      imageVector = Icons.Default.Person,
-      contentDescription = "Profile",
+      imageVector = Icons.Default.LockClock,
+      contentDescription = "Study Timer",
       tint = Color(0xFF0F9D58),
     )
 
-    Text(text = "Profile", color = Color.Black)
+    Text(text = "Study Timer", color = Color.Black)
   }
 }

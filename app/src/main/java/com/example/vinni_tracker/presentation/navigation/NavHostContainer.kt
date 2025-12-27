@@ -2,16 +2,23 @@ package com.example.vinni_tracker.presentation.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.vinni_tracker.presentation.screens.ai_help.AiHelpScreen
-import com.example.vinni_tracker.presentation.screens.home.HomeScreen
-import com.example.vinni_tracker.presentation.screens.profile.ProfileScreen
-import com.example.vinni_tracker.presentation.screens.tasks.TasksScreen
+import com.example.vinni_tracker.presentation.ui.screens.ai_help.AiHelpScreen
+import com.example.vinni_tracker.presentation.ui.screens.home.HomeScreen
+import com.example.vinni_tracker.presentation.ui.screens.home.news.NewsScreen
+import com.example.vinni_tracker.presentation.ui.screens.home.petstat.PetStatsScreen
+import com.example.vinni_tracker.presentation.ui.screens.home.recommendation.RecommendationScreen
+import com.example.vinni_tracker.presentation.ui.screens.home.shop.ShopScreen
+import com.example.vinni_tracker.presentation.ui.screens.home.storage.StudyStorageScreen
+import com.example.vinni_tracker.presentation.ui.screens.home.timer.StudyTimerScreen
+import com.example.vinni_tracker.presentation.ui.screens.home.userstat.UserStatsScreen
+import com.example.vinni_tracker.presentation.ui.screens.profile.ProfileScreen
+import com.example.vinni_tracker.presentation.ui.screens.settings.SettingsScreen
+import com.example.vinni_tracker.presentation.ui.screens.tasks.TasksScreen
 
 @Composable
 fun NavHostContainer(navController: NavHostController, padding: PaddingValues, modifier: Modifier = Modifier) {
@@ -33,28 +40,28 @@ fun NavHostContainer(navController: NavHostController, padding: PaddingValues, m
         ProfileScreen()
       }
       composable("study_timer") {
-        Text("Study Timer Screen")
+        StudyTimerScreen()
       }
       composable("pet_stats") {
-        Text("Pet Stats Screen")
+        PetStatsScreen()
       }
       composable("user_stats") {
-        Text("User Stats Screen")
+        UserStatsScreen()
       }
       composable("shop_screen") {
-        Text("Shop Screen")
-      }
-      composable("calendar_screen") {
-        Text("Calendar Screen")
+        ShopScreen()
       }
       composable("study_storage") {
-        Text("Study Storage Screen")
+        StudyStorageScreen()
       }
       composable("recommendation_screen") {
-        Text("Recommendation Screen")
+        RecommendationScreen()
       }
       composable("news_screen") {
-        Text("News Screen")
+        NewsScreen()
+      }
+      composable("settings_screen") {
+        SettingsScreen()
       }
     },
   )

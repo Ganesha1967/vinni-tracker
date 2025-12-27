@@ -1,4 +1,4 @@
-package com.example.vinni_tracker.presentation.theme
+package com.example.vinni_tracker.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
